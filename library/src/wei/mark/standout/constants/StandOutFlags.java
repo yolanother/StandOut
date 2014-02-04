@@ -70,7 +70,27 @@ public class StandOutFlags {
 	 * Note that if {@link #FLAG_DECORATION_SYSTEM} is set, the window can
 	 * always be moved by dragging the titlebar regardless of this flag.
 	 */
-	public static final int FLAG_BODY_MOVE_ENABLE = 1 << flag_bit++;
+	public static final int FLAG_BODY_MOVE_ENABLE_X = 1 << flag_bit++;
+
+	/**
+	 * Setting this flag indicates that the window can be moved by dragging the
+	 * body.
+	 * 
+	 * <p>
+	 * Note that if {@link #FLAG_DECORATION_SYSTEM} is set, the window can
+	 * always be moved by dragging the titlebar regardless of this flag.
+	 */
+	public static final int FLAG_BODY_MOVE_ENABLE_Y = 1 << flag_bit++;
+
+	/**
+	 * Setting this flag indicates that the window can be moved by dragging the
+	 * body.
+	 * 
+	 * <p>
+	 * Note that if {@link #FLAG_DECORATION_SYSTEM} is set, the window can
+	 * always be moved by dragging the titlebar regardless of this flag.
+	 */
+	public static final int FLAG_BODY_MOVE_ENABLE = FLAG_BODY_MOVE_ENABLE_X | FLAG_BODY_MOVE_ENABLE_Y;
 
 	/**
 	 * Setting this flag indicates that windows are able to be hidden, that

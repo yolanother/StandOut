@@ -525,7 +525,7 @@ public abstract class StandOutWindow extends Service {
 	 * @return The title for the persistent notification.
 	 */
 	public String getPersistentNotificationTitle(int id) {
-		return getAppName() + " Running";
+		return getAppName();
 	}
 
 	/**
@@ -639,7 +639,10 @@ public abstract class StandOutWindow extends Service {
 		Context c = getApplicationContext();
 		String contentTitle = getPersistentNotificationTitle(id);
 		String contentText = getPersistentNotificationMessage(id);
-		String tickerText = String.format("%s: %s", contentTitle, contentText);
+		String tickerText = contentTitle;
+		if(null != contentText && contentText.length() > 0) {
+			tickerText = String.format("%s: %s", contentTitle, contentText);
+		}
 
 		// getPersistentNotification() is called for every new window
 		// so we replace the old notification with a new one that has
@@ -655,10 +658,16 @@ public abstract class StandOutWindow extends Service {
 					PendingIntent.FLAG_UPDATE_CURRENT);
 		}
 
-		Notification notification = new Notification(icon, tickerText, when);
-		notification.setLatestEventInfo(c, contentTitle, contentText,
-				contentIntent);
-		return notification;
+		Notification.Builder builder = new Notification.Builder(c)
+			.setContentTitle(contentTitle)
+			.setContentText(contentText)
+			.setTicker(tickerText)
+			.setWhen(when)
+			.setSmallIcon(icon);
+		if(null != contentIntent) {
+			builder.setContentIntent(contentIntent);
+		}
+		return builder.build();
 	}
 
 	/**
@@ -1606,12 +1615,20 @@ public abstract class StandOutWindow extends Service {
 
 					// if window is moveable
 					if (Utils.isSet(window.flags,
-							StandOutFlags.FLAG_BODY_MOVE_ENABLE)) {
+							StandOutFlags.FLAG_BODY_MOVE_ENABLE_X) ||
+						Utils.isSet(window.flags,
+								StandOutFlags.FLAG_BODY_MOVE_ENABLE_Y)) {
 
 						// update the position of the window
 						if (event.getPointerCount() == 1) {
-							params.x += deltaX;
-							params.y += deltaY;
+							if(Utils.isSet(window.flags,
+									StandOutFlags.FLAG_BODY_MOVE_ENABLE_X)) {
+								params.x += deltaX;
+							}
+							if(Utils.isSet(window.flags,
+									StandOutFlags.FLAG_BODY_MOVE_ENABLE_Y)) {
+								params.y += deltaY;
+							}
 						}
 
 						window.edit().setPosition(params.x, params.y).commit();

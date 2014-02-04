@@ -32,6 +32,8 @@
         </service>
         <service android:name="WidgetsWindow" >
         </service>
+        <service android:name="Slider" >
+        </service>
     </application>
 
 </manifest>

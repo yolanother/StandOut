@@ -1,6 +1,7 @@
 package wei.mark.example;
 
 import wei.mark.standout.StandOutWindow;
+
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -13,13 +14,16 @@ public class StandOutExampleActivity extends Activity {
 		StandOutWindow.closeAll(this, SimpleWindow.class);
 		StandOutWindow.closeAll(this, MultiWindow.class);
 		StandOutWindow.closeAll(this, WidgetsWindow.class);
+		StandOutWindow.closeAll(this, Slider.class);
 
 		// show a MultiWindow, SimpleWindow
 
-		StandOutWindow
+		/*StandOutWindow
 				.show(this, SimpleWindow.class, StandOutWindow.DEFAULT_ID);
 		StandOutWindow.show(this, MultiWindow.class, StandOutWindow.DEFAULT_ID);
 		StandOutWindow.show(this, WidgetsWindow.class,
+				StandOutWindow.DEFAULT_ID);*/
+		StandOutWindow.show(this, Slider.class,
 				StandOutWindow.DEFAULT_ID);
 
 		// show a MostBasicWindow. It is commented out because it does not
